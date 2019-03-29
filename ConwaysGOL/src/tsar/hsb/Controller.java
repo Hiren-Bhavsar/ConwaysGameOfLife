@@ -55,8 +55,7 @@ public class Controller {
 		}
 	}
 
-	// TODO Make Private
-	public int countNeighbours(int x, int y) {
+	private int countNeighbours(int x, int y) {
 		int neighbourCount = 0;
 
 		for (int a = -1; a < 2; a++) {
