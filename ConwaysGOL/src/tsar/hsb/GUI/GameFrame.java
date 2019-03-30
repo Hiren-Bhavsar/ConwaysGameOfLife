@@ -21,7 +21,7 @@ public class GameFrame extends JFrame {
 	private JButton[][] buttonArray;
 	private JPanel menuPanel, gamePanel;
 	private boolean mouseClicked;
-	private final int TIME_DELAY = 500;
+	private final int TIME_DELAY = 300;
 	private Timer time;
 
 	public GameFrame(int x, int y, int width, int height) {
