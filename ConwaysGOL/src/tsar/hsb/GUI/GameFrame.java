@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import tsar.hsb.Controller;
 
@@ -22,6 +21,8 @@ public class GameFrame extends JFrame {
 	private JButton[][] buttonArray;
 	private JPanel menuPanel, gamePanel;
 	private boolean mouseClicked;
+	private final int TIME_DELAY = 500;
+	private Timer time;
 
 	public GameFrame(int x, int y, int width, int height) {
 		this.cellX = x;
@@ -34,6 +35,7 @@ public class GameFrame extends JFrame {
 
 		buttonArray = new JButton[x][y];
 		gameController = new Controller();
+		time = new Timer(TIME_DELAY, timerListener);
 	}
 
 	public void startGame() {
@@ -45,7 +47,7 @@ public class GameFrame extends JFrame {
 		this.setSize(width, height);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Conway's Game Of Life");
+		this.setTitle("Conway's Game Of Life By: BhavTsar");
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
@@ -96,9 +98,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				transferButtonArray();
-				gameController.runSimulation();
-				getGameArray();
+				time.start();
 			}
 		});
 
@@ -106,6 +106,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				time.stop();
 			}
 		});
 
@@ -160,6 +161,16 @@ public class GameFrame extends JFrame {
 			}
 		}
 	}
+
+	ActionListener timerListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			transferButtonArray();
+			gameController.runSimulation();
+			getGameArray();
+		}
+	};
 
 	ActionListener buttonListener = new ActionListener() {
 
